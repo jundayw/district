@@ -10,15 +10,15 @@
 		<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
 		<!-- jQuery -->
 		<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
-		<!-- pickerRegin -->
-		<script src="chinese.districts.js"></script>
+		<!-- district -->
+		<script src="districts.chinese.min.js"></script>
 		<script src="district.js"></script>
 		
 		<script type="text/javascript">
 		$(function(){
 			$('[name=province_code],[name=city_code],[name=country_code]').district({
 				data:ChineseDistricts,
-        install:false,
+				install:false,
 				callback:{
 					// 补全省市县信息
 					items:function(element){

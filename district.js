@@ -1,10 +1,13 @@
-/* district.js
- * ========
+/**
+ * district.js
+ * https://github.com/jundayw/district
+ *
  * 插件扩展联动功能
  * @Author:Mr.Alex
  * @Email:<mail@wangqiqiang.com>
  * @version:1.0.0
  * @date:2018-11-08 18:00:07
+ *
  * @demo:$('[name=province_code],[name=city_code],[name=country_code]').district({data:ChineseDistricts});
  */
 (function(window,$,undefined){
