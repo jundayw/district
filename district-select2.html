@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<title>framework | unknown @action comments</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- bootstrap -->
+		<link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- jQuery -->
+		<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+		<!-- select2 -->
+		<link rel="stylesheet" href="select2/select2.min.css">
+		<script src="select2/select2.full.min.js"></script>
+		<!-- pickerRegin -->
+		<script src="chinese.districts.js"></script>
+		<script src="district.js"></script>
+		
+		<script type="text/javascript">
+		$(function(){
+			$('[name=province_code],[name=city_code],[name=country_code]').district({
+				data:ChineseDistricts,
+				callback:{
+					// 补全省市县信息
+					items:function(element){
+						var original = $('[name=address]').val();
+						var present = $('option:selected',element).html();
+						var val = element === '[name=province_code]' ? present : original + present;
+						$('[name=address]').val(val);
+					},
+					// 补全电话区号、邮政编码信息
+					item:function(data){
+						if( data ){$('[name=zip]').val(data.value);}
+					}
+				}
+			});
+		});
+		</script>
+	</head>
+	<body class="skin-purple hold-transition sidebar-mini sidebar-collapse-disabled">
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><span class="text-red">*</span>省市区-县</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="province_code" rel-target="[name=city_code]" rel-option="130000" data-placeholder="请选择省/直辖市"></select>    
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" name="city_code" rel-target="[name=country_code]" rel-option="130100" data-placeholder="请选择市/区"></select>
+			</div>
+			<div class="col-sm-3">
+				<select class="form-control" name="country_code" rel-option="130123" data-placeholder="请选择县"></select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><span class="text-red">*</span>邮编</label>
+			<div class="col-sm-10">
+				<input type="text" name='zip' value="" class="form-control" placeholder="请输入邮编" autocomplete="off" />
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">详细地址</label>
+			<div class="col-sm-10">
+				<input type="text" name='address' value="" class="form-control" placeholder="请输入详细地址" autocomplete="off" />
+			</div>
+		</div>
+	</body>
+</html>
