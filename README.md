@@ -3,7 +3,9 @@
 district 是一款 jQuery 插件，主要用于多级菜单联动（如省市县），可根据自己需求定制。默认搭载 jQuery 插件 select2（优化下拉菜单插件）使用，支持对原生 select（下拉菜单）支持。
 
 ## 演示
-[DEMO插件版](https://jundayw.github.io/district/district.html)
+[DEMO常规版](https://jundayw.github.io/district/district.html)
+
+[DEMO插件版](https://jundayw.github.io/district/district-select2.html)
 
 [DEMO原生版](https://jundayw.github.io/district/district-select.html)
 
