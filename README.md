@@ -1,6 +1,6 @@
 ## 简介
 
-district 是一款 jQuery 插件，主要用于多级菜单联动（如省市县），可根据自己需求定制。默认搭载 jQuery 插件 select2（优化下拉菜单插件）使用，支持对原生 select（下拉菜单）支持。
+district 是一款 jQuery 插件，主要用于多级菜单联动（如省市县），可根据自己需求定制。支持 jQuery.select2（优化下拉菜单插件）插件，支持原生 select（下拉菜单）。
 
 ## 演示
 [DEMO常规版](https://jundayw.github.io/district/district.html)
@@ -23,6 +23,33 @@ district 是一款 jQuery 插件，主要用于多级菜单联动（如省市县
 ## 开发理念
 
 简单、快速。
+
+## 开使使用
+
+加载依赖库
+```html
+<script src="jQuery.js"></script>
+```
+加载本插件
+```html
+<script src="districts.chinese.min.js"></script>
+<script src="district.js"></script>
+```
+调用
+```javascript
+<script type="text/javascript">
+$(function(){
+	$('[name=province_code],[name=city_code],[name=country_code]').district({data:ChineseDistricts});
+});
+</script>
+```
+HTML代码
+```html
+<select class="form-control" name="province_code" rel-target="[name=city_code]" rel-option="130000" data-placeholder="请选择省/直辖市"></select>
+<select class="form-control" name="city_code" rel-target="[name=country_code]" rel-option="130100" data-placeholder="请选择市/区"></select>
+<select class="form-control" name="country_code" rel-option="130123" data-placeholder="请选择县"></select>
+```
+完成
 
 ## 商业友好的开源协议
 

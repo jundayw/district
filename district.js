@@ -23,7 +23,10 @@
 				change:'change',// 通用事件
 				target:'rel-target',// 联动操作目标
 				option:'rel-option',// 编辑模式默认值
-				install:true,// 装载函数:{true:使用select2(优化下拉菜单)插件;false:使用select原生下拉菜单;function(){}:自定义装载函数}
+				// true:使用select2(优化下拉菜单)插件;
+				// false:使用select原生下拉菜单;
+				// function(){}:自定义装载函数
+				plugin:false,// 插件扩展函数
 				index:-1,// 默认值，可提供后端判断是否已经选择
 				callback:{
 					items:function(element){return element;},
@@ -120,18 +123,18 @@
 		// 执行方法
 		var change = function(target,data,parent,option)
 		{
-			// 默认支持select2插件
-			if( options.install === true )
+			// 支持插件select2
+			if( options.plugin === true )
 			{
 				return select2(target,getRegon(data,parent),option);
 			}
-			// 可使用原生select
-			if( options.install === false )
+			// 支持原生select
+			if( options.plugin === false )
 			{
 				return select(target,getRegon(data,parent),option);
 			}
 			// 自定义其他方式
-			return options.install(target,getRegon(data,parent),option);
+			return options.plugin(target,getRegon(data,parent),option);
 		}
 		// 遍历选择器数组
 		$.each(elements,function(i,element)
