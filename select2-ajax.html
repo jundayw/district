@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>select2 Demo</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <!--bootstrap样式-->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <!--jQuery-->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <!--bootstrap-->
+    <script src="https://cdn.bootcss.com/select2/4.0.4/js/select2.js"></script>
+    <!--select2-->
+    <script src="https://cdn.bootcss.com/select2/4.0.4/js/i18n/zh-CN.js"></script>
+    <!--select2语言包-->
+    <link href="https://cdn.bootcss.com/select2/4.0.4/css/select2.css" rel="stylesheet">
+    <!--select2样式-->
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <!--awesome图标库-->
+    <style>
+        html,body {
+    height: 100%;
+}
+
+img {
+    width: 50px;
+    height: 50px
+}
+
+.select2-result-repository__avatar {
+    float: left;
+    width: 60px;
+    margin-right: 10px;
+}
+
+.select2-result-repository__meta {
+    margin-left: 70px;
+}
+
+.select2-result-repository__title {
+    color: black;
+    font-weight: 700;
+    word-wrap: break-word;
+    line-height: 1.1;
+    margin-bottom: 4px;
+}
+
+.select2-result-repository__statistics div {
+    margin-right: 5px;
+    display: block;
+    float: left;
+}
+    </style>
+    <script>
+        $(function() {
+            var placeholder = "请选择";
+            $("#ajaxdata").select2({
+                ajax: {
+                    url: function(params) {
+                        return "https://api.github.com/search/repositories"
+                    }, //动态url,也可以直接写成 url:https://api.github.com/search/repositories
+                    dataType: 'json',
+                    delay: 250, //在多少毫秒内没有输入时则开始请求服务器
+                    data: function(params) {
+                        return {
+                            q: params.term, // 搜索参数
+                            page: params.page
+                        };
+                    },
+                    processResults: function(data, params) {
+                        // 此处解析数据，将数据返回给select2
+                        params.page = params.page || 1;
+						console.log(data.items)
+						
+						var x = [];
+						
+						for(var i in data.items)
+						{
+							
+							x.push({
+								id:data.items[i].id,
+								text:data.items[i].name
+							})
+							
+						}
+						
+                        return {
+                            results: x, // data返回数据（返回最终数据给results，如果我的数据在data.res下，则返回data.res。这个与服务器返回json有关）
+                            pagination: {
+                                more: (params.page * 10) < data.total_count //滚动到底部时是否自动加载更多
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                placeholder: '请输入关键字',
+                escapeMarkup: function(markup) {
+                    return markup;
+                }, // 字符转义处理
+                minimumInputLength: 1,
+                templateResult: formatRepo, //返回结果回调function formatRepo(repo){return repo.text},这样就可以将返回结果的的text显示到下拉框里，当然你可以return repo.text+"1";等
+                //templateSelection: formatRepoSelection, //选中项回调function formatRepoSelection(repo){return repo.text}
+                language: 'zh-CN'
+            });
+
+            function formatRepo(repo) { //repo对象根据拼接返回结果
+                if (repo.loading) {
+                    return repo.text;
+                }
+				return repo.text;
+            }
+
+            function formatRepoSelection(repo) { //根据选中的最新返回显示在选择框中的文字
+                return repo.text;
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-1 col-md-1 control-label">ajax数据源</label>
+                            <div class="col-lg-11 col-md-11">
+                                <select class="form-control select2" id="ajaxdata"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+    </div>
+</body>
